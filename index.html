@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<!--
+  SPDX-License-Identifier: AGPL-3.0-or-later
+  SPDX-FileCopyrightText: 2026 Hallatec Technology Solutions LLC
+
+  H-Score - part of Hallatec Forge.
+  Canonical: https://hscore.hallatec.com/
+  Source:    https://github.com/hallatec/hallatec-hscore
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>H-Score - Cyber Posture Index · Hallatec Forge</title>
+<meta name="description" content="A 15-minute, plain-language cyber posture self-assessment across all six NIST CSF 2.0 Functions. One honest 0-100 score, your weakest link, and the five actions that move it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/hallatec.css?v=3" />
+<link rel="canonical" href="https://hscore.hallatec.com/" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "H-Score - Cyber Posture Index",
+  "url": "https://hscore.hallatec.com/",
+  "applicationCategory": "SecurityApplication",
+  "operatingSystem": "Web browser",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AED" },
+  "description": "A 15-minute self-assessment across the six NIST CSF 2.0 functions. One 0-100 posture score, your weakest link, and the five actions that move it.",
+  "isAccessibleForFree": true,
+  "publisher": { "@type": "Organization", "name": "Hallatec Technology Solutions LLC", "url": "https://hallatec.com/" }
+}
+</script>
+<meta name="author" content="Hallatec Technology Solutions LLC" />
+<meta name="copyright" content="Copyright (C) 2026 Hallatec Technology Solutions LLC" />
+<link rel="license" href="https://www.gnu.org/licenses/agpl-3.0.html" />
+<link rel="code-repository" href="https://github.com/hallatec/hallatec-hscore" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "H-Score",
+  "codeRepository": "https://github.com/hallatec/hallatec-hscore",
+  "programmingLanguage": ["HTML", "CSS", "JavaScript"],
+  "runtimePlatform": "Web browser",
+  "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+  "copyrightYear": "2026",
+  "copyrightHolder": { "@type": "Organization", "name": "Hallatec Technology Solutions LLC", "url": "https://hallatec.com/" },
+  "author": { "@type": "Organization", "name": "Hallatec Technology Solutions LLC", "url": "https://hallatec.com/" },
+  "targetProduct": {
+    "@type": "SoftwareApplication",
+    "name": "H-Score",
+    "url": "https://hscore.hallatec.com/",
+    "applicationCategory": "SecurityApplication"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Hallatec Forge",
+    "url": "https://forge.hallatec.com/"
+  }
+}
+</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../../index.html" aria-label="Hallatec Forge home"><span class="brand-logo" role="img" aria-label="Hallatec"></span><span class="brand-sub">Forge</span></a>
+    <span class="nav-spring"></span>
+    <a class="back-link" href="../../index.html">← All tools</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="tool-hero" id="intro">
+  <div class="wrap">
+    <div class="kbadge"><span class="pill"><span class="tag">Phase 1</span> · Class A · Static</span> <span class="chip sev-info">NIST · Govern → Recover</span></div>
+    <h1>Your cyber posture, <span class="grad-text">honestly scored.</span></h1>
+    <p class="lead">About 30 plain questions across the six NIST CSF 2.0 Functions. No account, no scan, nothing stored. You get one 0-100 posture index, your strongest and weakest Function, an indicative financial exposure band, and the five highest-impact actions - each tied to a named control.</p>
+
+    <div class="grid g2" style="margin-top:24px">
+      <div class="card"><h3 style="font-size:16px">✓ What this is</h3><p style="margin-top:8px">A self-declared posture index and a prioritised action list, mapped to NIST, CIS, Cyber Essentials and ISO. A credible baseline you can act on and share.</p></div>
+      <div class="card"><h3 style="font-size:16px">✕ What this is not</h3><p style="margin-top:8px">Not an audit, not a scan, not a certification. It reflects what you tell it. For evidence-backed assurance, that's where a Hallatec review comes in.</p></div>
+    </div>
+
+    <div class="btn-row" style="margin-top:22px">
+      <button class="btn btn-primary" id="startBtn">Start the assessment</button>
+      <button class="btn btn-ghost" id="sampleBtn">See a sample result</button>
+    </div>
+    <div style="margin-top:16px">
+      <label for="orgName" class="muted">Optional - name on your report</label>
+      <input class="input" id="orgName" placeholder="Your organisation" style="max-width:340px;margin-top:6px" />
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONNAIRE mounts here -->
+<div id="q" class="hidden" style="padding-bottom:40px"></div>
+
+<!-- RESULTS -->
+<main class="wrap hidden" id="results">
+  <section class="card card-glow" style="display:flex;gap:28px;align-items:center;flex-wrap:wrap">
+    <div class="gauge" id="hGauge" data-value="0"></div>
+    <div style="flex:1;min-width:260px">
+      <p class="eyebrow">Posture Index · <span id="rOrg">Your organisation</span></p>
+      <h2 id="bandHead" style="margin:8px 0 6px">-</h2>
+      <p id="verdictLine" class="lead" style="font-size:16px">-</p>
+      <div class="btn-row" style="margin-top:14px" id="strongWeak"></div>
+    </div>
+  </section>
+
+  <div class="grid g2" style="margin-top:22px">
+    <section class="card">
+      <h3 style="font-size:17px">Posture across the six Functions</h3>
+      <div id="radarWrap" style="display:grid;place-items:center;margin-top:8px"></div>
+      <p class="muted center">Higher is more mature. Data table below for screen readers.</p>
+    </section>
+    <section class="card">
+      <h3 style="font-size:17px">Posture by NIST function</h3>
+      <p class="muted" style="margin:2px 0 14px">Each function scored 0-100 from your answers. The tick marks the Managed threshold (50).</p>
+      <div class="meter-grid two" id="fnMeters"></div>
+      <div class="alert" id="floorNote" style="margin-top:14px"></div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:22px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <h3 style="font-size:17px">Indicative annual financial exposure</h3>
+      <details class="drawer" style="border:0;margin:0"><summary>how we estimate this</summary></details>
+    </div>
+    <p style="margin-top:6px;font-size:22px"><span id="aedBand" class="grad-text" style="font-weight:700">AED -</span></p>
+    <p class="muted" id="aedNote" style="margin-top:4px">A calm, order-of-magnitude range from your posture and size - not a prediction, and not from your accounts.</p>
+  </section>
+
+  <section style="margin-top:26px">
+    <h3>Your five highest-impact actions</h3>
+    <p class="muted" style="margin-bottom:12px">Ordered by the points they recover. Each names the control so your IT partner knows exactly what to do.</p>
+    <div id="top5"></div>
+  </section>
+
+  <!-- Fused grade -->
+  <section class="card" style="margin-top:22px">
+    <h3 style="font-size:17px">Optional - fuse with an ExposureX outside-in scan</h3>
+    <p style="margin-top:6px">Your questionnaire is the inside-out view. ExposureX is the outside-in view. The honest headline is the <strong>weakest link</strong> of the two - because attackers use whichever is weaker.</p>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="card card-2 center"><div class="muted">Inside-out (H-Score)</div><div id="fuseInside" style="font-size:30px;font-weight:700" class="grad-text">-</div></div>
+      <div class="card card-2 center"><div class="muted">Outside-in (ExposureX)</div><div style="font-size:30px;font-weight:700">68<span class="muted" style="font-size:14px">/100</span></div><div class="muted">illustrative</div></div>
+      <div class="card card-2 center"><div class="muted">Fused headline</div><div id="fuseHead" style="font-size:30px;font-weight:700" class="grad-text">-</div><div class="muted">weakest-link</div></div>
+    </div>
+  </section>
+
+  <!-- Transparency -->
+  <section class="card" style="margin-top:22px">
+    <details class="drawer" style="border:0;margin:0">
+      <summary style="font-size:15px;font-weight:600;color:var(--text)">How H-Score is calculated - the full rubric</summary>
+      <div class="drawer-body" style="font-size:13.5px">
+        <p><strong>Answer scale (per question):</strong> 0 None · 1 Ad-hoc · 2 Defined · 3 Managed · 4 Automated.</p>
+        <p style="margin-top:8px"><strong>Function score</strong> = weighted average of its questions, scaled to 0-100. High-impact questions (MFA, patching, tested backups) carry more weight.</p>
+        <p style="margin-top:8px"><strong>Overall</strong> = weighted blend of the six Functions (Protect and Recover weighted higher by breach impact).</p>
+        <p style="margin-top:8px"><strong>Floor rules (hard gates):</strong> no enforced MFA, or backups never restore-tested, cap the headline at <em>Developing</em> until fixed - with the exact control named.</p>
+        <p style="margin-top:8px"><strong>Bands:</strong> 0-24 Exposed · 25-49 Developing · 50-74 Managed · 75-89 Resilient · 90-100 Optimised.</p>
+        <p style="margin-top:8px"><strong>AED band</strong> is an order-of-magnitude estimate from posture and size - indicative only.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="cta" style="margin-top:26px">
+    <p class="eyebrow">Next step</p>
+    <h3>Turn this baseline into a plan.</h3>
+    <p>H-Score shows you where you stand. A Hallatec baseline review validates it with evidence and sequences the fixes into a roadmap your leadership can sign off.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="HTC.print()">⇩ Export board report</button>
+      <a class="btn btn-ghost" href="mailto:hello@hallatec.com?subject=H-Score%20-%20baseline%20review">Book a baseline review</a>
+    </div>
+    <div class="crosslinks"><a href="../emailguard/">Check email spoofing →</a><a href="../lifeline/">Test your backups →</a><a href="../trustkey/">Build an identity policy →</a></div>
+  </section>
+
+  <p class="disclaimer" style="margin-top:22px">Self-declared posture index; reflects your answers; point-in-time. Not an audit or a scan. AED exposure is indicative and order-of-magnitude.</p>
+</main>
+
+<footer class="foot"><div class="wrap"><span class="brand-logo foot-logo" role="img" aria-label="Hallatec"></span><span>© 2026 Hallatec Technology Solutions LLC</span><span class="disclaimer">H-Score · Cyber Posture Index</span></div></footer>
+
+<script src="assets/hallatec.js?v=3"></script>
+<script>
+const $ = HTC.$;
+const FUNCS = ["Govern","Identify","Protect","Detect","Respond","Recover"];
+const FN_WEIGHT = { Govern:1, Identify:1, Protect:1.4, Detect:1.1, Respond:1, Recover:1.3 };
+const BANK = [
+  { fn:"Govern", title:"Govern - ownership & risk direction", items:[
+    { id:"g1", w:1, text:"Someone clearly owns cybersecurity decisions and reports on them.", why:"Accountability is the root of every other control." },
+    { id:"g2", w:1, text:"You have written security policies that staff actually see." },
+    { id:"g3", w:1, text:"Leadership reviews cyber risk at least once a year." },
+    { id:"g4", w:1, text:"Vendor / third-party access is approved and periodically reviewed." },
+    { id:"g5", w:1, text:"You hold cyber insurance and know what it requires of you." }
+  ]},
+  { fn:"Identify", title:"Identify - know what you're protecting", items:[
+    { id:"i1", w:2, text:"You keep an up-to-date inventory of devices and software.", why:"You can't protect what you don't know you have (CIS 1 & 2)." },
+    { id:"i2", w:1, text:"You know where your sensitive and regulated data lives." },
+    { id:"i3", w:1, text:"Data is classified by sensitivity (public / internal / confidential)." },
+    { id:"i4", w:1, text:"You track which of your systems are internet-facing." },
+    { id:"i5", w:1, text:"New tools and SaaS are risk-checked before adoption." }
+  ]},
+  { fn:"Protect", title:"Protect - the core safeguards", items:[
+    { id:"p1", w:3, gate:"MFA is not enforced on email and admin accounts", text:"MFA is enforced on email and all admin accounts.", why:"The single highest-impact control against account takeover." },
+    { id:"p2", w:1, text:"Admin accounts are separate from everyday user accounts." },
+    { id:"p3", w:2, text:"Systems and software are patched on a defined schedule.", why:"Unpatched, internet-facing software is a top breach cause." },
+    { id:"p4", w:1, text:"Staff complete security-awareness / phishing training." },
+    { id:"p5", w:1, text:"Endpoints run managed anti-malware or EDR." }
+  ]},
+  { fn:"Detect", title:"Detect - would you notice?", items:[
+    { id:"d1", w:1, text:"Security logs are collected from your key systems." },
+    { id:"d2", w:1, text:"Someone reviews alerts, or a service monitors for you." },
+    { id:"d3", w:1, text:"You would notice unusual or impossible-travel logins." },
+    { id:"d4", w:1, text:"Inbound email is filtered for phishing and malicious links." },
+    { id:"d5", w:1, text:"You could tell if data was leaving your network." }
+  ]},
+  { fn:"Respond", title:"Respond - when something happens", items:[
+    { id:"rs1", w:1, text:"You have a written incident-response plan." },
+    { id:"rs2", w:1, text:"Staff know who to call first during an incident." },
+    { id:"rs3", w:1, text:"You've practised the plan (a tabletop) in the last year." },
+    { id:"rs4", w:1, text:"Crisis roles and decision-authority are defined." },
+    { id:"rs5", w:1, text:"You have external IR / legal / comms contacts ready." }
+  ]},
+  { fn:"Recover", title:"Recover - get back to business", items:[
+    { id:"rc1", w:2, text:"Backups run automatically and are monitored for failure." },
+    { id:"rc2", w:3, gate:"Backups have never been restore-tested", text:"Backups are tested by actually restoring data.", why:"An untested backup is a hope, not a recovery plan." },
+    { id:"rc3", w:1, text:"At least one backup copy is offline or immutable." },
+    { id:"rc4", w:1, text:"You know your recovery-time and data-loss targets (RTO/RPO)." },
+    { id:"rc5", w:1, text:"A business-continuity plan exists beyond just IT." }
+  ]}
+];
+const BANDS = [[90,"Optimised"],[75,"Resilient"],[50,"Managed"],[25,"Developing"],[0,"Exposed"]];
+function bandOf(s){ for(const [t,n] of BANDS) if(s>=t) return n; return "Exposed"; }
+
+/* ---- scoring ---- */
+function compute(ans){
+  const fnScore = {};
+  BANK.forEach(g=>{
+    let num=0, den=0;
+    g.items.forEach(it=>{ const v = ans[it.id] ?? 0; num += v*it.w; den += 4*it.w; });
+    fnScore[g.fn] = Math.round(num/den*100);
+  });
+  let wnum=0, wden=0;
+  FUNCS.forEach(f=>{ wnum += fnScore[f]*FN_WEIGHT[f]; wden += FN_WEIGHT[f]; });
+  let overall = Math.round(wnum/wden);
+  // floor rules
+  const floors = [];
+  BANK.forEach(g=> g.items.forEach(it=>{ if(it.gate && (ans[it.id] ?? 0)===0) floors.push(it.gate); }));
+  let capped = false;
+  if(floors.length){ if(overall>49){ overall=49; capped=true; } }
+  return { fnScore, overall, floors, capped };
+}
+
+function radarSVG(vals){
+  const S=230, c=S/2, R=88, n=6;
+  const pt=(i,r)=>{ const a=-Math.PI/2 + i*2*Math.PI/n; return [c+r*Math.cos(a), c+r*Math.sin(a)]; };
+  let grid="";
+  [0.25,0.5,0.75,1].forEach(f=>{ let p=""; for(let i=0;i<n;i++){const [x,y]=pt(i,R*f); p+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1);} grid+='<path d="'+p+'Z" fill="none" stroke="rgba(255,255,255,.09)"/>'; });
+  let axes=""; for(let i=0;i<n;i++){ const [x,y]=pt(i,R); axes+='<line x1="'+c+'" y1="'+c+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="rgba(255,255,255,.09)"/>'; }
+  let poly=""; vals.forEach((v,i)=>{ const [x,y]=pt(i,R*v/100); poly+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1); }); poly+="Z";
+  let labels=""; FUNCS.forEach((f,i)=>{ const [x,y]=pt(i,R+18); labels+='<text x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" fill="#a3a8b4" font-size="11" font-weight="600" text-anchor="middle" dominant-baseline="middle">'+f+'</text>'; });
+  let dots=""; vals.forEach((v,i)=>{ const [x,y]=pt(i,R*v/100); dots+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3" fill="#f26530"/>'; });
+  return '<svg width="'+S+'" height="'+S+'" viewBox="0 0 '+S+' '+S+'" role="img" aria-label="Radar of six Function sub-scores">'+
+    grid+axes+'<path d="'+poly+'" fill="rgba(242,101,48,.22)" stroke="url(#hgrad)" stroke-width="2"/>'+dots+labels+'</svg>';
+}
+
+function render(ans){
+  const r = compute(ans);
+  const org = $("#orgName").value.trim() || "Your organisation";
+  $("#rOrg").textContent = org;
+  const g=$("#hGauge"); g.dataset.value=r.overall;
+  HTC.gauge(g, r.overall, { band: bandOf(r.overall), label:"H-Score" });
+  $("#bandHead").textContent = bandOf(r.overall) + " · " + r.overall + "/100";
+  // strongest / weakest
+  const sorted = FUNCS.slice().sort((a,b)=> r.fnScore[b]-r.fnScore[a]);
+  const strong=sorted[0], weak=sorted[sorted.length-1];
+  $("#verdictLine").textContent = r.capped
+    ? "Your posture is developing. A hard gate is holding your headline down - fix it and your real score is "+r.overall+"+."
+    : "Your strongest area is "+strong+"; your weakest is "+weak+". Close the gap in "+weak+" for the fastest gain.";
+  $("#strongWeak").innerHTML =
+    '<span class="chip sev-pass"><span class="ic">▲</span> Strongest: '+strong+' ('+r.fnScore[strong]+')</span>'+
+    '<span class="chip sev-warn"><span class="ic">▼</span> Weakest: '+weak+' ('+r.fnScore[weak]+')</span>';
+  // radar
+  $("#radarWrap").innerHTML = radarSVG(FUNCS.map(f=>r.fnScore[f]));
+  // per-function track-meters (0-100 each, target tick at the Managed threshold)
+  const fm=$("#fnMeters");
+  fm.innerHTML = FUNCS.map(f=>'<div class="track-meter" id="fnm-'+f+'"></div>').join("");
+  FUNCS.forEach(f=> HTC.trackMeter($("#fnm-"+f), r.fnScore[f], { label:f, max:100, unit:"/100", target:50 }));
+  // floor note
+  const fn=$("#floorNote");
+  if(r.floors.length){ fn.className="alert warn"; fn.innerHTML='<span class="ic">▲</span><span><b>One fix lifts your ceiling:</b> '+r.floors.join("; and ")+'. Resolve it to unlock a higher band.</span>'; }
+  else { fn.className="alert"; fn.innerHTML='<span class="ic">✓</span><span>No hard gates triggered - your headline reflects your full posture.</span>'; }
+  // AED band
+  const base = 40000 + (100-r.overall)*3600;
+  $("#aedBand").textContent = "AED " + HTC.fmt(base*0.6) + " - " + HTC.fmt(base*1.9);
+  // top 5 actions
+  const gaps=[];
+  BANK.forEach(gp=> gp.items.forEach(it=>{ const v=ans[it.id]??0; if(v<3) gaps.push({fn:gp.fn,it,v,deficit:(3-v)*it.w}); }));
+  gaps.sort((a,b)=> b.deficit-a.deficit);
+  const CTL = { p1:"CIS 6.5 / CE MFA", rc2:"CIS 11.5", p3:"CIS 7 / CE Patch", i1:"CIS 1 & 2", rc1:"CIS 11.1", d4:"CIS 9.7", p4:"CIS 14", g1:"NIST GV.RR", d2:"CIS 8 / 13", rs1:"NIST RS.MA", rc3:"CIS 11.4" };
+  const top = gaps.slice(0,5).map((x,i)=>{
+    const pts = Math.round(x.deficit*3.2);
+    return '<div class="rec"><span class="rank">'+(i+1)+'</span><div class="rbody"><h4>'+actionFor(x.it)+'</h4>'+
+      '<p>Currently '+["not in place","ad-hoc","defined but inconsistent"][x.v]+'. Lifts your '+x.fn+' Function most.</p>'+
+      '<div class="rec-meta"><span class="control-tag"><b>'+(CTL[x.it.id]||("NIST "+x.fn))+'</b></span><span class="chip sev-info">+'+pts+' points</span></div></div></div>';
+  }).join("");
+  $("#top5").innerHTML = top || '<div class="alert"><span class="ic">✓</span><span>No priority gaps - you\'re in strong shape. Focus on maintaining and evidencing.</span></div>';
+  // fused
+  $("#fuseInside").innerHTML = r.overall+'<span class="muted" style="font-size:14px">/100</span>';
+  const fused = Math.min(r.overall, 68);
+  $("#fuseHead").innerHTML = fused+'<span class="muted" style="font-size:14px">/100</span>';
+  HTC.reveal($("#results"));
+}
+function actionFor(it){
+  const M = { p1:"Enforce MFA on email and every admin account", rc2:"Run a real restore test of your backups", p3:"Put patching on a defined monthly schedule",
+    i1:"Build a live inventory of devices and software", rc1:"Automate and monitor your backups", d4:"Turn on phishing and link filtering for email",
+    p4:"Roll out phishing-awareness training", g1:"Name a clear owner for security decisions", d2:"Get alerts reviewed - in-house or managed",
+    rs1:"Write a one-page incident-response plan", rc3:"Add one offline or immutable backup copy" };
+  return M[it.id] || it.text.replace(/\.$/,"");
+}
+
+/* ---- wire questionnaire ---- */
+let qApi;
+function buildQ(){
+  $("#q").innerHTML="";
+  qApi = HTC.Questionnaire({
+    mount:"#q",
+    groups: BANK.map(g=>({ fn:g.fn, title:g.title, items:g.items.map(i=>({id:i.id,text:i.text,why:i.why})) })),
+    computeLabel:"Reveal my H-Score",
+    onCompute: render
+  });
+}
+$("#startBtn").addEventListener("click", ()=>{
+  $("#intro").classList.add("hidden"); $("#q").classList.remove("hidden");
+  if(!qApi) buildQ(); qApi.scrollTop();
+});
+/* sample profile - a typical mid-maturity SME with an MFA gap */
+$("#sampleBtn").addEventListener("click", ()=>{
+  const sample = { g1:3,g2:2,g3:2,g4:2,g5:3, i1:2,i2:3,i3:1,i4:2,i5:2, p1:1,p2:2,p3:2,p4:2,p5:3, d1:2,d2:1,d3:2,d4:3,d5:1, rs1:1,rs2:2,rs3:0,rs4:1,rs5:1, rc1:3,rc2:1,rc3:2,rc4:2,rc5:1 };
+  render(sample);
+});
+</script>
+</body>
+</html>
